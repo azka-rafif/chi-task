@@ -30,6 +30,11 @@ func WithJSON(w http.ResponseWriter, code int, jsonPayload interface{}) {
 	respond(w, code, Base{Data: &jsonPayload})
 }
 
+func WithId(w http.ResponseWriter, code int, jsonPayload interface{}, id string) {
+	w.Header().Set("Id", id)
+	respond(w, code, Base{Data: &jsonPayload})
+}
+
 // WithError sends a response with an error message
 func WithError(w http.ResponseWriter, err error) {
 	code := failure.GetCode(err)

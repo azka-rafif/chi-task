@@ -10,9 +10,13 @@ import (
 
 var config *configs.Config
 
-//@securityDefinitions.apikey EVMOauthToken
-//@in header
-//@name Authorization
+// @securityDefinitions.apikey EVMOauthToken
+// @in header
+// @name Authorization
+
+// @securityDefinitions.headerkey HeaderAPIKEY
+// in header
+// @name X-Api-Key
 func main() {
 	// Initialize logger
 	logger.InitLogger()
@@ -26,10 +30,10 @@ func main() {
 	// Wire everything up
 	http := InitializeService()
 
-	consumers := InitializeEvent()
+	// consumers := InitializeEvent()
 
 	// Start consumers
-	consumers.Start()
+	// consumers.Start()
 
 	// Run server
 	http.SetupAndServe()
