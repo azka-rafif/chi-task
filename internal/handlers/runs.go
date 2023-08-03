@@ -25,11 +25,13 @@ func (h *RunHandler) Router(r chi.Router) {
 	r.Route("/runs", func(r chi.Router) {
 		r.Group(func(r chi.Router) {
 			r.Use(h.ApiKeyAuthentication.ApiKey)
+			r.Use(h.ApiKeyAuthentication.CustomMiddleware)
 			r.Get("/", h.HandleGetAll)
 			r.Post("/", h.HandlePost)
 		})
 		r.Group(func(r chi.Router) {
 			r.Use(h.ApiKeyAuthentication.ApiKey)
+			r.Use(h.ApiKeyAuthentication.CustomMiddleware)
 			r.Put("/{id}", h.HandleUpdate)
 			r.Delete("/{id}", h.HandleDelete)
 		})
