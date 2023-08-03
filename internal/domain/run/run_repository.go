@@ -53,7 +53,6 @@ func (r *RunRepositoryMySQL) GetAll(limit, offset int, sort, field string, locat
 		query += fmt.Sprintf("'%%%s%%'", location)
 	}
 	query += fmt.Sprintf(" ORDER BY %s %s LIMIT %d OFFSET %d", field, sort, limit, offset)
-	println(query)
 
 	err = r.DB.Read.Select(&res, query)
 	if err != nil {
