@@ -9,6 +9,7 @@ import (
 	"github.com/evermos/boilerplate-go/infras"
 	"github.com/evermos/boilerplate-go/internal/domain/foobarbaz"
 	"github.com/evermos/boilerplate-go/internal/domain/run"
+	"github.com/evermos/boilerplate-go/internal/domain/token"
 	"github.com/evermos/boilerplate-go/internal/handlers"
 	"github.com/evermos/boilerplate-go/transport/http"
 	"github.com/evermos/boilerplate-go/transport/http/middleware"
@@ -46,21 +47,28 @@ var domainRun = wire.NewSet(
 	wire.Bind(new(run.RunRepository), new(*run.RunRepositoryMySQL)),
 )
 
+var domainToken = wire.NewSet(
+	token.NewTokenServiceImpl,
+	wire.Bind(new(token.TokenService), new(*token.TokenServiceImpl)),
+)
+
 // Wiring for all domains.
 var domains = wire.NewSet(
-	domainFooBarBaz, domainRun,
+	domainFooBarBaz, domainRun, domainToken,
 )
 
 var authMiddleware = wire.NewSet(
 	middleware.ProvideAuthentication,
 	middleware.ProvideApiKeyAuthentication,
+	middleware.ProvideJwtAuthentication,
 )
 
 // Wiring for HTTP routing.
 var routing = wire.NewSet(
-	wire.Struct(new(router.DomainHandlers), "FooBarBazHandler", "RunHandler"),
+	wire.Struct(new(router.DomainHandlers), "FooBarBazHandler", "RunHandler", "TokenHandler"),
 	handlers.NewRunHandler,
 	handlers.ProvideFooBarBazHandler,
+	handlers.NewTokenHandler,
 	router.ProvideRouter,
 )
 

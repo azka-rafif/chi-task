@@ -9,6 +9,7 @@ import (
 type DomainHandlers struct {
 	FooBarBazHandler handlers.FooBarBazHandler
 	RunHandler       handlers.RunHandler
+	TokenHandler     handlers.TokenHandler
 }
 
 // Router is the router struct containing handlers.
@@ -28,5 +29,6 @@ func (r *Router) SetupRoutes(mux *chi.Mux) {
 	mux.Route("/v1", func(rc chi.Router) {
 		r.DomainHandlers.FooBarBazHandler.Router(rc)
 		r.DomainHandlers.RunHandler.Router(rc)
+		r.DomainHandlers.TokenHandler.Router(rc)
 	})
 }
