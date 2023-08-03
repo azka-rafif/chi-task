@@ -23,17 +23,16 @@ func NewRunHandler(service run.RunService, apiMiddleware *middleware.ApiKeyAuthe
 
 func (h *RunHandler) Router(r chi.Router) {
 	r.Route("/runs", func(r chi.Router) {
+		r.Use(h.ApiKeyAuthentication.ApiKey)
+		r.Use(h.ApiKeyAuthentication.CustomMiddleware)
+
 		r.Group(func(r chi.Router) {
-			r.Use(h.ApiKeyAuthentication.ApiKey)
-			r.Use(h.ApiKeyAuthentication.CustomMiddleware)
 			r.Get("/", h.HandleGetAll)
 			r.Post("/", h.HandlePost)
 		})
-		r.Group(func(r chi.Router) {
-			r.Use(h.ApiKeyAuthentication.ApiKey)
-			r.Use(h.ApiKeyAuthentication.CustomMiddleware)
-			r.Put("/{id}", h.HandleUpdate)
-			r.Delete("/{id}", h.HandleDelete)
+		r.Route("/{id}", func(r chi.Router) {
+			r.Put("/", h.HandleUpdate)
+			r.Delete("/", h.HandleDelete)
 		})
 	})
 }
