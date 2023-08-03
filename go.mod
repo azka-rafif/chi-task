@@ -5,11 +5,10 @@ go 1.15
 require (
 	github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751
 	github.com/aws/aws-sdk-go v1.35.21
-	github.com/aws/aws-sdk-go-v2 v1.12.0 // indirect
-	github.com/aws/aws-sdk-go-v2/config v1.12.0 // indirect
-	github.com/aws/aws-sdk-go-v2/credentials v1.7.0 // indirect
-	github.com/aws/aws-sdk-go-v2/service/sns v1.14.0 // indirect
-	github.com/cenkalti/backoff/v4 v4.1.0
+	github.com/aws/aws-sdk-go-v2 v1.12.0
+	github.com/aws/aws-sdk-go-v2/config v1.12.0
+	github.com/aws/aws-sdk-go-v2/credentials v1.7.0
+	github.com/aws/aws-sdk-go-v2/service/sns v1.14.0
 	github.com/cosmtrek/air v1.12.5-0.20200905080724-b538c70423fb
 	github.com/cpuguy83/go-md2man/v2 v2.0.0 // indirect
 	github.com/fatih/color v1.9.0 // indirect
